@@ -11,3 +11,14 @@
 - GET /api/v1/posts // Auth Required // Get All Posts
 - GET /api/v1/posts/{id} // Auth Required // Get Single Post
 - DELETE /api/v1/posts/{id} // Auth Required // Delete Single Post
+
+#### TODO:
+
+- Add comments
+- Add likes
+- comment count for posts
+- like count for posts
+- delete comment and reduce comment count
+- unlike and reduce like count
+- user image upload to cloudinary
+- notifications - how to do? Socket IO? Notification will come when new comments or likes.
