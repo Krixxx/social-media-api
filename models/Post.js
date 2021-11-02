@@ -28,12 +28,4 @@ const PostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// posID - automaatne
-// body - 255
-// commentCount
-// createdAt - automaatne
-// likeCount
-// user
-// userImage
-
 module.exports = mongoose.model('Post', PostSchema);

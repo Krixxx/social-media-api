@@ -41,7 +41,7 @@ app.use(xss());
 
 // main route
 app.get('/', (req, res) => {
-  res.send('Kristjan Social API');
+  res.send('Krix Social API');
 });
 
 // routes

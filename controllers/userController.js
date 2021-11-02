@@ -34,7 +34,6 @@ const updateUser = async (req, res) => {
 
 // delete user
 const deleteUser = async (req, res) => {
-  console.log(req);
   const {
     user: { userId },
   } = req;
