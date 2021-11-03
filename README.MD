@@ -12,12 +12,14 @@
 - GET /api/v1/posts/{id} // Auth Required // Get Single Post
 - DELETE /api/v1/posts/{id} // Auth Required // Delete Single Post
 
+#### Comments
+
+- POST /api/v1/posts/{id}/comment // Auth Required // Create comment to post
+
 #### TODO:
 
-- Add comments
 - Add likes
-- comment count for posts
-- like count for posts
+- change like count for posts
 - delete comment and reduce comment count
 - unlike and reduce like count
 - user image upload to cloudinary

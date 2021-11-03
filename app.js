@@ -20,7 +20,7 @@ const authRouter = require('./routes/authRouter');
 const postsRouter = require('./routes/postsRouter');
 const userRouter = require('./routes/userRouter');
 
-// errorhandlers
+// error handlers
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
@@ -48,8 +48,8 @@ app.get('/', (req, res) => {
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/posts', authenticateUser, postsRouter);
 app.use('/api/v1/users', authenticateUser, userRouter);
-// likeRoutes
 // commentRoutes
+// likeRoutes
 // notificationRoutes
 
 // middleware
