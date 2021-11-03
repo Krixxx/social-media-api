@@ -35,4 +35,17 @@ const createComment = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ comment });
 };
 
-module.exports = { createComment };
+// get all comments for specified post
+const getAllPostComments = async (req, res) => {
+  // find all comments with given postId
+  const allCommentsOnPost = await Comment.find({ postId: req.params.id }).sort(
+    '-createdAt'
+  );
+
+  // return all comments and also count of comments
+  res
+    .status(StatusCodes.OK)
+    .json({ allCommentsOnPost, count: allCommentsOnPost.length });
+};
+
+module.exports = { createComment, getAllPostComments };

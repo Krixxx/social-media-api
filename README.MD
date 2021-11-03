@@ -15,6 +15,7 @@
 #### Comments
 
 - POST /api/v1/posts/{id}/comment // Auth Required // Create comment to post
+- GET /api/v1/posts/{id}/comment // Auth Required // Get all comments on post
 
 #### TODO:
 
@@ -24,3 +25,4 @@
 - unlike and reduce like count
 - user image upload to cloudinary
 - notifications - how to do? Socket IO? Notification will come when new comments or likes.
+- get all posts and get all comments - should be accessible without authentication. Must refactor some routes.
