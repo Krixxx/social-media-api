@@ -17,22 +17,10 @@ const createComment = async (req, res) => {
     body: { message },
   } = req;
 
-  // update original post and add comment count
-
-  // get initial post
-  const initialPost = await Post.findOne({ _id: postId });
-
-  // check, if we receive post
-  if (!initialPost) {
-    throw new NotFoundError(`No post with id ${postId}`);
-  }
-  // destructure current comment count
-  const { commentCount: initialCommentCount } = initialPost;
-
-  // get original post and update comment count
+  // get original post, increment commentCount and update post
   await Post.findOneAndUpdate(
     { _id: postId },
-    { commentCount: initialCommentCount + 1 },
+    { $inc: { commentCount: 1 } },
     { new: true, runValidators: true }
   );
 
