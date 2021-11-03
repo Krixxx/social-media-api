@@ -18,11 +18,15 @@ const createComment = async (req, res) => {
   } = req;
 
   // get original post, increment commentCount and update post
-  await Post.findOneAndUpdate(
+  const updatePost = await Post.findOneAndUpdate(
     { _id: postId },
     { $inc: { commentCount: 1 } },
     { new: true, runValidators: true }
   );
+
+  if (!updatePost) {
+    throw new NotFoundError('Please provide correct post id');
+  }
 
   // save comment to db
   const comment = await Comment.create({ message, postId, userId, image });
