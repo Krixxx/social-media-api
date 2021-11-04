@@ -17,6 +17,7 @@ const authenticateUser = require('./middleware/authentication');
 
 // routers
 const authRouter = require('./routes/authRouter');
+const publicRouter = require('./routes/publicRouter');
 const postsRouter = require('./routes/postsRouter');
 const userRouter = require('./routes/userRouter');
 
@@ -46,6 +47,7 @@ app.get('/', (req, res) => {
 
 // routes
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/public', publicRouter);
 app.use('/api/v1/posts', authenticateUser, postsRouter);
 app.use('/api/v1/users', authenticateUser, userRouter);
 // commentRoutes

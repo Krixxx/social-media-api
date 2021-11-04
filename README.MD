@@ -5,24 +5,25 @@
 - PATCH /api/v1/users // Auth Required // Update User
 - DELETE /api/v1/users // Auth Required // Delete User
 
+#### Public route
+
+- GET /api/v1/public // Get All Posts
+- GET /api/v1/public/{id} // Get all comments on post
+
 #### Posts
 
 - POST /api/v1/posts // Auth Required // Create Post {"message":"hello"}
-- GET /api/v1/posts // Auth Required // Get All Posts
 - GET /api/v1/posts/{id} // Auth Required // Get Single Post
 - DELETE /api/v1/posts/{id} // Auth Required // Delete Single Post
 
 #### Comments
 
 - POST /api/v1/posts/{id}/comment // Auth Required // Create comment to post
-- GET /api/v1/posts/{id}/comment // Auth Required // Get all comments on post
+- DELETE /api/v1/posts/{id}/comment/{com} // Auth required // Delete single comment
 
 #### TODO:
 
-- Add likes
-- change like count for posts
-- delete comment and reduce comment count
+- Add likes and increase like count
 - unlike and reduce like count
 - user image upload to cloudinary
 - notifications - how to do? Socket IO? Notification will come when new comments or likes.
-- get all posts and get all comments - should be accessible without authentication. Must refactor some routes.
