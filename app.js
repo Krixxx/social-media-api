@@ -50,15 +50,13 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/public', publicRouter);
 app.use('/api/v1/posts', authenticateUser, postsRouter);
 app.use('/api/v1/users', authenticateUser, userRouter);
-// commentRoutes
-// likeRoutes
 // notificationRoutes
 
 // middleware
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 const start = async () => {
   try {
