@@ -8,7 +8,7 @@
 #### Public route
 
 - GET /api/v1/public // Get All Posts
-- GET /api/v1/public/{id} // Get all comments on post
+- GET /api/v1/public/{id}/comment // Get all comments on post
 
 #### Posts
 

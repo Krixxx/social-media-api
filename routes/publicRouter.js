@@ -6,6 +6,6 @@ const { getAllPostComments } = require('../controllers/commentsController');
 
 router.route('/').get(getAllPosts);
 
-router.route('/:id').get(getAllPostComments);
+router.route('/:id/comment').get(getAllPostComments);
 
 module.exports = router;
