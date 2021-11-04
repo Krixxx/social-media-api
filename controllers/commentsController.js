@@ -48,4 +48,35 @@ const getAllPostComments = async (req, res) => {
     .json({ allCommentsOnPost, count: allCommentsOnPost.length });
 };
 
-module.exports = { createComment, getAllPostComments };
+const deletePostComment = async (req, res) => {
+  const {
+    params: { id: postId, com: commentId },
+    user: { userId },
+  } = req;
+
+  const comment = await Comment.findOneAndRemove({
+    _id: commentId,
+    userId,
+  });
+
+  if (!comment) {
+    throw new NotFoundError(`No comment with id ${commentId}`);
+  }
+  console.log('before update');
+  // get original post, decrement commentCount and update post
+  const updatePost = await Post.findOneAndUpdate(
+    { _id: postId },
+    { $inc: { commentCount: -1 } },
+    { new: true, runValidators: true }
+  );
+
+  if (!updatePost) {
+    throw new NotFoundError('Please provide correct post id');
+  }
+  console.log(updatePost);
+  console.log('after update');
+
+  res.status(StatusCodes.OK).send();
+};
+
+module.exports = { createComment, getAllPostComments, deletePostComment };
