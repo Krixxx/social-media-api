@@ -21,9 +21,12 @@
 - POST /api/v1/posts/{id}/comment // Auth Required // Create comment to post
 - DELETE /api/v1/posts/{id}/comment/{com} // Auth required // Delete single comment
 
+#### Likes
+
+- POST /api/v1/posts/{id}/like // Auth required // Like a post
+- DELETE /api/v1/posts/{id}/like/{like} // Auth required // Remove like from a post
+
 #### TODO:
 
-- Add likes and increase like count
-- unlike and reduce like count
 - user image upload to cloudinary
 - notifications - how to do? Socket IO? Notification will come when new comments or likes.
