@@ -62,7 +62,7 @@ const deletePostComment = async (req, res) => {
   if (!comment) {
     throw new NotFoundError(`No comment with id ${commentId}`);
   }
-  console.log('before update');
+
   // get original post, decrement commentCount and update post
   const updatePost = await Post.findOneAndUpdate(
     { _id: postId },
@@ -73,8 +73,6 @@ const deletePostComment = async (req, res) => {
   if (!updatePost) {
     throw new NotFoundError('Please provide correct post id');
   }
-  console.log(updatePost);
-  console.log('after update');
 
   res.status(StatusCodes.OK).send();
 };
