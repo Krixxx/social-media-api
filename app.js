@@ -27,7 +27,7 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 
 // rateLimiter middleware
 app.set('trust proxy', 1);
-app.use(rateLimiter({ windowMs: 15 * 60 * 1000, max: 100 }));
+app.use(rateLimiter({ windowMs: 1 * 60 * 1000, max: 60 })); // max 60 tried per minute
 
 // make public folder available
 app.use(express.static('./public'));
