@@ -2,6 +2,7 @@
 
 - POST /api/v1/auth/register // Register User {"name":"test", "email":"test@test.com","password":"something"}
 - POST /api/v1/auth/login // Login User {"email":"test@test.com","password":"something"}
+- GET /api/v1/users // Auth Required // Get User
 - PATCH /api/v1/users // Auth Required // Update User
 - DELETE /api/v1/users // Auth Required // Delete User
 
@@ -26,7 +27,10 @@
 - POST /api/v1/posts/{id}/like // Auth required // Like a post
 - DELETE /api/v1/posts/{id}/like/{like} // Auth required // Remove like from a post
 
+#### Upload
+
+- POST /api/v1/users/uploads // Auth required // Upload image
+
 #### TODO:
 
-- user image upload to cloudinary
 - notifications - how to do? Socket IO? Notification will come when new comments or likes.

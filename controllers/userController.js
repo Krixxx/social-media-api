@@ -2,6 +2,21 @@ const { StatusCodes } = require('http-status-codes');
 const User = require('../models/User');
 const { BadRequestError, NotFoundError } = require('../errors');
 
+// get current user
+const getUser = async (req, res) => {
+  const {
+    user: { userId },
+  } = req;
+
+  const user = await User.findOne({ _id: userId });
+
+  if (!user) {
+    throw new NotFoundError(`No user with id ${userId}`);
+  }
+
+  res.status(StatusCodes.OK).json({ user });
+};
+
 // update user
 const updateUser = async (req, res) => {
   const {
@@ -50,6 +65,7 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
+  getUser,
   updateUser,
   deleteUser,
 };

@@ -10,6 +10,18 @@ const rateLimiter = require('express-rate-limit');
 const express = require('express');
 const app = express();
 
+// file upload
+const fileUpload = require('express-fileupload');
+
+// cloudinary
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
 // connect to database
 const connectDB = require('./db/connect');
 // import authentication middleWare
@@ -34,6 +46,8 @@ app.use(express.static('./public'));
 
 // middleWare for req.body
 app.use(express.json());
+
+app.use(fileUpload({ useTempFiles: true }));
 
 // security packages
 app.use(helmet());

@@ -28,9 +28,9 @@ const getPost = async (req, res) => {
 
 // create a post
 const createPost = async (req, res) => {
-  console.log(req);
   req.body.createdBy = req.user.userId;
   req.body.image = req.user.image;
+  req.body.userHandle = req.user.name;
 
   const post = await Post.create(req.body);
 
