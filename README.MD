@@ -26,6 +26,7 @@
 
 - POST /api/v1/posts/{id}/like // Auth required // Like a post
 - DELETE /api/v1/posts/{id}/like/{like} // Auth required // Remove like from a post
+- GET /api/v1/users/likes // Auth required // Get all user likes
 
 #### Upload
 

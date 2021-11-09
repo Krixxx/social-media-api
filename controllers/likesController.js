@@ -10,6 +10,20 @@ const {
   UnauthenticatedError,
 } = require('../errors');
 
+// get all likes
+const getAllUserLikes = async (req, res) => {
+  const {
+    user: { userId },
+  } = req;
+
+  const likes = await Like.find({ userId: userId });
+
+  if (!likes) {
+    throw new NotFoundError('No likes with such user id');
+  }
+  res.status(StatusCodes.OK).json({ likes });
+};
+
 // save like
 const like = async (req, res) => {
   const {
@@ -61,4 +75,4 @@ const unLike = async (req, res) => {
   res.status(StatusCodes.OK).send();
 };
 
-module.exports = { like, unLike };
+module.exports = { like, unLike, getAllUserLikes };
