@@ -61,6 +61,7 @@ const unLike = async (req, res) => {
   if (!like) {
     throw new NotFoundError('like does not exist');
   }
+
   // get original post, increment commentCount and update post
   const updatePost = await Post.findOneAndUpdate(
     { _id: postId },
@@ -75,4 +76,19 @@ const unLike = async (req, res) => {
   res.status(StatusCodes.OK).send();
 };
 
-module.exports = { like, unLike, getAllUserLikes };
+// remove all likes for given post
+const removeAllPostLikes = async (req, res) => {
+  const {
+    params: { id: postId },
+  } = req;
+
+  const removed = await Like.deleteMany({ postId: postId });
+
+  if (!removed) {
+    throw new NotFoundError('There were no likes for that post');
+  }
+
+  res.status(StatusCodes.OK).json({ removed });
+};
+
+module.exports = { like, unLike, getAllUserLikes, removeAllPostLikes };
