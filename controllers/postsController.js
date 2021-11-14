@@ -1,5 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const Post = require('../models/Post');
+const User = require('../models/User');
 const {
   BadRequestError,
   NotFoundError,
@@ -28,8 +29,13 @@ const getPost = async (req, res) => {
 
 // create a post
 const createPost = async (req, res) => {
+  //
+  // we could use req.user.image to retrieve image url, but when we change user image, we want to create post with new image without logging out and then in.
+  // Therefore we fetch this user image url from server first, and then pass it to request body. userId and user name cannot change.
+  const { image } = await User.findOne({ _id: req.user.userId });
+
   req.body.createdBy = req.user.userId;
-  req.body.image = req.user.image;
+  req.body.image = image;
   req.body.userHandle = req.user.name;
 
   const post = await Post.create(req.body);
