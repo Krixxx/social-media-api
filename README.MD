@@ -3,6 +3,7 @@
 - POST /api/v1/auth/register // Register User {"name":"test", "email":"test@test.com","password":"something"}
 - POST /api/v1/auth/login // Login User {"email":"test@test.com","password":"something"}
 - GET /api/v1/users // Auth Required // Get User
+- GET /api/v1/users/{id} // Auth Required // Get selected user by userId
 - PATCH /api/v1/users // Auth Required // Update User
 - DELETE /api/v1/users // Auth Required // Delete User
 

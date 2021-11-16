@@ -17,6 +17,21 @@ const getUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user });
 };
 
+// Get given user data
+const getAllUserData = async (req, res) => {
+  const {
+    params: { id: userId },
+  } = req;
+
+  const user = await User.findOne({ _id: userId });
+
+  if (!user) {
+    throw new NotFoundError(`No user with id ${userId}`);
+  }
+
+  res.status(StatusCodes.OK).json({ user });
+};
+
 // update user
 const updateUser = async (req, res) => {
   const {
@@ -68,4 +83,5 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
+  getAllUserData,
 };
