@@ -21,6 +21,7 @@
 
 - POST /api/v1/posts/{id}/comment // Auth Required // Create comment to post
 - DELETE /api/v1/posts/{id}/comment/{com} // Auth required // Delete single comment
+- DELETE /api/v1/posts/{id}/comment // Auth required // Delete all comments for given post
 
 #### Likes
 

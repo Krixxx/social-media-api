@@ -10,7 +10,7 @@ const {
 
 const {
   createComment,
-  deletePostComment,
+  deletePostComment,deleteAllPostComments,
 } = require('../controllers/commentsController');
 
 const {
@@ -23,7 +23,7 @@ router.route('/').post(createPost);
 
 router.route('/:id').get(getPost).delete(deletePost).patch(updatePost);
 
-router.route('/:id/comment').post(createComment);
+router.route('/:id/comment').post(createComment).delete(deleteAllPostComments);
 
 router.route('/:id/comment/:com').delete(deletePostComment);
 

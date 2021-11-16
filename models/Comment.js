@@ -12,6 +12,10 @@ const CommentSchema = new mongoose.Schema(
       ref: 'Post',
       required: [true, 'Please provide post to comment'],
     },
+    userHandle: {
+      type: String,
+      required: [true, 'Please provide user name'],
+    },
     userId: {
       type: mongoose.Types.ObjectId,
       ref: 'User',

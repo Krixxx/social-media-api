@@ -13,7 +13,7 @@ const {
 const createComment = async (req, res) => {
   const {
     params: { id: postId },
-    user: { userId, image },
+    user: { userId, image, name },
     body: { message },
   } = req;
 
@@ -29,7 +29,7 @@ const createComment = async (req, res) => {
   }
 
   // save comment to db
-  const comment = await Comment.create({ message, postId, userId, image });
+  const comment = await Comment.create({ message, postId, userId, image, userHandle:name });
 
   // return response
   res.status(StatusCodes.CREATED).json({ comment });
@@ -77,4 +77,20 @@ const deletePostComment = async (req, res) => {
   res.status(StatusCodes.OK).send();
 };
 
-module.exports = { createComment, getAllPostComments, deletePostComment };
+const deleteAllPostComments = async (req, res) =>{
+
+const {
+  params:{id:postId}
+}= req
+
+const removed = await Comment.deleteMany({postId:postId})
+
+if (!removed) {
+    throw new NotFoundError('There were no comments for that post');
+  }
+
+  res.status(StatusCodes.OK).json({ removed });
+
+}
+
+module.exports = { createComment, getAllPostComments, deletePostComment, deleteAllPostComments };
