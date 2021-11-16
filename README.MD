@@ -15,7 +15,7 @@
 #### Posts
 
 - POST /api/v1/posts // Auth Required // Create Post {"message":"hello"}
-- POST /api/v1/post // Auth Required // Get All User posts {"user":"elkdnwöqlkenflöknöqlnf"}
+- GET /api/v1/posts // Auth Required // Get All User posts - need query input
 - GET /api/v1/posts/{id} // Auth Required // Get Single Post
 - DELETE /api/v1/posts/{id} // Auth Required // Delete Single Post
 

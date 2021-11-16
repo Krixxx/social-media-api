@@ -67,7 +67,7 @@ const deletePost = async (req, res) => {
 
 const getAllUserPosts = async (req, res) => {
   const {
-    body: { user },
+    query: { name: user },
   } = req;
 
   const posts = await Post.find({ createdBy: user });
