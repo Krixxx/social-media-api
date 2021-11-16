@@ -65,10 +65,25 @@ const deletePost = async (req, res) => {
   res.status(StatusCodes.OK).send();
 };
 
+const getAllUserPosts = async (req, res) => {
+  const {
+    body: { user },
+  } = req;
+
+  const posts = await Post.find({ createdBy: user });
+
+  if (!posts) {
+    throw new NotFoundError(`No posts from user ${user}`);
+  }
+
+  res.status(StatusCodes.OK).json({ posts, count: posts.length });
+};
+
 module.exports = {
   getAllPosts,
   getPost,
   createPost,
   updatePost,
   deletePost,
+  getAllUserPosts,
 };

@@ -6,11 +6,13 @@ const {
   createPost,
   updatePost,
   deletePost,
+  getAllUserPosts,
 } = require('../controllers/postsController');
 
 const {
   createComment,
-  deletePostComment,deleteAllPostComments,
+  deletePostComment,
+  deleteAllPostComments,
 } = require('../controllers/commentsController');
 
 const {
@@ -19,7 +21,7 @@ const {
   removeAllPostLikes,
 } = require('../controllers/likesController');
 
-router.route('/').post(createPost);
+router.route('/').get(getAllUserPosts).post(createPost);
 
 router.route('/:id').get(getPost).delete(deletePost).patch(updatePost);
 
