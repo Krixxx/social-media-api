@@ -64,12 +64,13 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/public', publicRouter);
 app.use('/api/v1/posts', authenticateUser, postsRouter);
 app.use('/api/v1/users', authenticateUser, userRouter);
-// notificationRoutes
+// TODO: notificationRoutes
 
 // middleware
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
+// set port - from environment variables or if not given, then default 5000
 const port = process.env.PORT || 5000;
 
 const start = async () => {
