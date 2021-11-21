@@ -14,7 +14,7 @@ const getUser = async (req, res) => {
   let userData = {};
 
   // find user from db
-  const user = await User.findOne({ _id: userId });
+  const user = await User.findOne({ _id: userId }, { updatedAt: 0, __v: 0 });
 
   if (!user) {
     throw new NotFoundError(`No user with id ${userId}`);
@@ -27,7 +27,7 @@ const getUser = async (req, res) => {
   }
 
   //get all user likes and add them to user object
-  const likes = await Like.find({ userId: userId });
+  const likes = await Like.find({ userId: userId }, { __v: 0 });
 
   if (!likes) {
     throw new NotFoundError('No likes with such user id');
@@ -42,9 +42,9 @@ const getUser = async (req, res) => {
   const notifications = await Notification.find(
     {
       //find all notifications, where:
-      recipient: user, //recipient is current user
+      recipient: userId, //recipient is current user
       read: false, //notification is not read
-      senderId: { $ne: user }, //sender id is not equal to current user
+      senderId: { $ne: userId }, //sender id is not equal to current user
     },
     { updatedAt: 0, senderId: 0, __v: 0, read: 0 } //exclude these fields from returned result
   ).sort('-createdAt'); //sort newest first
@@ -60,10 +60,10 @@ const getUser = async (req, res) => {
   }
 
   // return user object
-  res.status(StatusCodes.OK).json({ user, userData });
+  res.status(StatusCodes.OK).json({ userData });
 };
 
-// Get given user data - actually it is the same, but here we fetch userId from url params
+// Get given user data - except likes and notifications, here we get userId from url params
 const getAllUserData = async (req, res) => {
   // get userId from url params
   const {

@@ -3,6 +3,8 @@ const { StatusCodes } = require('http-status-codes');
 const Comment = require('../models/Comment');
 // import Post schema
 const Post = require('../models/Post');
+// import Notification Schema
+const Notification = require('../models/Notification');
 
 const {
   BadRequestError,
@@ -10,7 +12,7 @@ const {
   UnauthenticatedError,
 } = require('../errors');
 
-// create comment
+// create comment and also create notification for comment
 const createComment = async (req, res) => {
   // get needed values from url params, user and req body.
   const {
@@ -39,6 +41,20 @@ const createComment = async (req, res) => {
     image,
     userHandle: name,
   });
+
+  // save notification for comment
+  //  we need to get recipientId, sender name and postId from request, to add notification.
+  const notification = await Notification.create({
+    recipient: updatePost.createdBy,
+    sender: name,
+    senderId: userId,
+    postId: postId,
+    type: 'comment',
+  });
+
+  if (!notification) {
+    throw new NotFoundError('Notification error');
+  }
 
   // return response
   res.status(StatusCodes.CREATED).json({ comment });

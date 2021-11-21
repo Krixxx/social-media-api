@@ -26,12 +26,14 @@ cloudinary.config({
 const connectDB = require('./db/connect');
 // import authentication middleWare
 const authenticateUser = require('./middleware/authentication');
+const logger = require('./middleware/logger');
 
 // routers
 const authRouter = require('./routes/authRouter');
 const publicRouter = require('./routes/publicRouter');
 const postsRouter = require('./routes/postsRouter');
 const userRouter = require('./routes/userRouter');
+const notificationRouter = require('./routes/notificationRouter');
 
 // error handlers
 const notFoundMiddleware = require('./middleware/not-found');
@@ -60,11 +62,11 @@ app.get('/', (req, res) => {
 });
 
 // routes
-app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/public', publicRouter);
-app.use('/api/v1/posts', authenticateUser, postsRouter);
-app.use('/api/v1/users', authenticateUser, userRouter);
-// TODO: notificationRoutes
+app.use('/api/v1/auth', logger, authRouter);
+app.use('/api/v1/public', logger, publicRouter);
+app.use('/api/v1/posts', logger, authenticateUser, postsRouter);
+app.use('/api/v1/users', logger, authenticateUser, userRouter);
+app.use('/api/v1/notifications', logger, authenticateUser, notificationRouter);
 
 // middleware
 app.use(notFoundMiddleware);
