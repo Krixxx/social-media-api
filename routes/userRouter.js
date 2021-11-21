@@ -9,11 +9,9 @@ const {
 } = require('../controllers/userController');
 
 const { uploadUserImage } = require('../controllers/uploadsController');
-const { getAllUserLikes } = require('../controllers/likesController');
 
 router.route('/').get(getUser).patch(updateUser).delete(deleteUser);
 router.route('/user/:id').get(getAllUserData);
 router.route('/uploads').post(uploadUserImage);
-router.route('/likes').get(getAllUserLikes);
 
 module.exports = router;

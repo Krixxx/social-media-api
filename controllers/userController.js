@@ -43,11 +43,13 @@ const getUser = async (req, res) => {
     {
       //find all notifications, where:
       recipient: userId, //recipient is current user
-      read: false, //notification is not read
+      // read: false, //notification is not read
       senderId: { $ne: userId }, //sender id is not equal to current user
     },
-    { updatedAt: 0, senderId: 0, __v: 0, read: 0 } //exclude these fields from returned result
-  ).sort('-createdAt'); //sort newest first
+    { updatedAt: 0, senderId: 0, __v: 0 } //exclude these fields from returned result
+  )
+    .sort('-createdAt') // sort newest first
+    .limit(10); //and get last 10 results.
 
   if (!notifications) {
     throw new NotFoundError(`No active notifications for user ${userId}`);

@@ -3,10 +3,9 @@ const router = express.Router();
 
 // import notification controllers
 const {
-  getUserActiveNotifications,
   markNotificationsRead,
 } = require('../controllers/notificationController');
 
-router.route('/').get(getUserActiveNotifications).patch(markNotificationsRead);
+router.route('/').patch(markNotificationsRead);
 
 module.exports = router;
