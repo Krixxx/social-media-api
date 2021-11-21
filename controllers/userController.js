@@ -1,5 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const User = require('../models/User');
+const Like = require('../models/Like');
+const Notification = require('../models/Notification');
 const { BadRequestError, NotFoundError } = require('../errors');
 
 // get current user
@@ -9,6 +11,8 @@ const getUser = async (req, res) => {
     user: { userId },
   } = req;
 
+  let userData = {};
+
   // find user from db
   const user = await User.findOne({ _id: userId });
 
@@ -16,8 +20,47 @@ const getUser = async (req, res) => {
     throw new NotFoundError(`No user with id ${userId}`);
   }
 
+  if (user) {
+    userData.user = user;
+  } else {
+    userData.user = {};
+  }
+
+  //get all user likes and add them to user object
+  const likes = await Like.find({ userId: userId });
+
+  if (!likes) {
+    throw new NotFoundError('No likes with such user id');
+  }
+  //set likes to user object
+  if (likes) {
+    userData.likes = likes;
+  } else {
+    userData.likes = [];
+  }
+
+  const notifications = await Notification.find(
+    {
+      //find all notifications, where:
+      recipient: user, //recipient is current user
+      read: false, //notification is not read
+      senderId: { $ne: user }, //sender id is not equal to current user
+    },
+    { updatedAt: 0, senderId: 0, __v: 0, read: 0 } //exclude these fields from returned result
+  ).sort('-createdAt'); //sort newest first
+
+  if (!notifications) {
+    throw new NotFoundError(`No active notifications for user ${userId}`);
+  }
+
+  if (notifications) {
+    userData.notifications = notifications;
+  } else {
+    userData.notifications = [];
+  }
+
   // return user object
-  res.status(StatusCodes.OK).json({ user });
+  res.status(StatusCodes.OK).json({ user, userData });
 };
 
 // Get given user data - actually it is the same, but here we fetch userId from url params
