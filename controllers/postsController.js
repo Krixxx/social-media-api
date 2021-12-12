@@ -91,7 +91,7 @@ const getAllUserPosts = async (req, res) => {
   } = req;
 
   // find all posts, created By given user
-  const posts = await Post.find({ createdBy: user });
+  const posts = await Post.find({ createdBy: user }).sort('-createdAt');
 
   if (!posts) {
     throw new NotFoundError(`No posts from user ${user}`);
